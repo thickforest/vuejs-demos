@@ -1,0 +1,15 @@
+#!/usr/bin/python
+#coding:utf-8
+########################################################################
+# File Name: constants.py
+# Author: forest
+# Mail: thickforest@126.com 
+# Created Time: 2018年02月08日 星期四 09时00分14秒
+########################################################################
+DB_HOST = '127.0.0.1'
+DB_PORT = '3306'
+DB_DATABASE = 'DBNAME'
+DB_USERNAME = 'root'
+DB_PASSWORD = ''
+SQLALCHEMY_TRACK_MODIFICATIONS = True
+SQLALCHEMY_DATABASE_URI = 'mysql+mysqldb://{}:{}@{}:{}/{}'.format(DB_USERNAME, DB_PASSWORD, DB_HOST, DB_PORT, DB_DATABASE)

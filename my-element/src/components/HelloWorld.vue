@@ -1,23 +1,46 @@
 <template>
   <div>
-    <el-button @click="visible = true">按钮</el-button>
-    <el-dialog :visible.sync="visible" title="Hello world">
-      <p>欢迎使用 Element</p>
-    </el-dialog>
+    <el-button @click="getUserList">获取列表</el-button>
+    <el-table
+      :data="userlist"
+      style="width: 100%"
+      max-height="500">
+      <el-table-column
+        prop="username"
+        label="用户名"
+        width="150">
+      </el-table-column>
+      <el-table-column
+        prop="password"
+        label="密码"
+        width="150">
+      </el-table-column>
+      <el-table-column
+        label="操作"
+        width="120">
+        <template slot-scope="scope">
+          <el-button
+            @click.native.prevent="deleteRow(scope.row.id)"
+            type="text"
+            size="small">
+            移除
+          </el-button>
+        </template>
+      </el-table-column>
+    </el-table>
 
-    <el-upload
-      class="upload-demo"
-      action="https://jsonplaceholder.typicode.com/posts/"
-      :on-preview="handlePreview"
-      :on-remove="handleRemove"
-      :before-remove="beforeRemove"
-      multiple
-      :limit="3"
-      :on-exceed="handleExceed"
-      :file-list="fileList">
-      <el-button size="small" type="primary">点击上传</el-button>
-      <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
-    </el-upload>
+    <el-form ref="form" action="http://localhost:5000/user" :model="form" label-width="80px">
+      <el-form-item label="用户名">
+        <el-input v-model="form.username"></el-input>
+      </el-form-item>
+      <el-form-item label="密码">
+        <el-input v-model="form.password"></el-input>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" @click="onSubmit">立即创建</el-button>
+        <el-button>取消</el-button>
+      </el-form-item>
+    </el-form>
   </div>
 </template>
 
@@ -26,22 +49,26 @@ export default {
   name: 'HelloWorld',
   data () {
     return {
-      visible: false,
-      fileList: [{name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}, {name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}]
+    }
+  },
+  computed: {
+    form () {
+      return this.$store.state.user
+    },
+    userlist () {
+      return this.$store.state.users
     }
   },
   methods: {
-    handleRemove (file, fileList) {
-      console.log(file, fileList)
+    getUserList () {
+      this.$store.commit('getUserList')
     },
-    handlePreview (file) {
-      console.log(file)
+    onSubmit () {
+      this.$store.commit('saveUser')
     },
-    handleExceed (files, fileList) {
-      this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`)
-    },
-    beforeRemove (file, fileList) {
-      return this.$confirm(`确定移除 ${file.name}?`)
+    deleteRow (idx) {
+      console.log(idx)
+      this.$store.commit('delUser', idx)
     }
   }
 }
