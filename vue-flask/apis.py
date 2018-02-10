@@ -9,6 +9,7 @@
 from flask import jsonify, request
 from models import User, Address, session_commit
 from common import *
+import time
 
 def init_api(app):
 
@@ -26,6 +27,7 @@ def init_api(app):
 		user.username = username
 		user.password = password
 		user.save()
+		time.sleep(5)
 		return jsonify(trueReturn({'id':user.id}))
 
 	@app.route('/user/<int:userid>', methods = ['DELETE'])
