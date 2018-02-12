@@ -19,28 +19,29 @@ def init_api(app):
 
 	@app.route('/user', methods = ['POST'])
 	def addUser():
-		print request.json
+		print 'Add:', request.json
 		username = request.json.get('username')
 		password = request.json.get('password')
-		print username, password
+		age = request.json.get('age')
 		user = User()
 		user.username = username
 		user.password = password
+		user.age = age
 		user.save()
-		time.sleep(5)
 		return jsonify(trueReturn({'id':user.id}))
 
 	@app.route('/user/<int:userid>', methods = ['DELETE'])
 	def delUser(userid):
-		print userid
+		print 'Detele:', userid
 		User.query.filter_by(id=userid).delete()
 		session_commit()
-		return jsonify(trueReturn({'id':userid}))
+		return jsonify(trueReturn({}))
 
 	@app.route('/user', methods = ['GET'])
 	def getUsers():
 		users = User.query.all()
 		output = []
 		for user in users:
-			output.append({'id':user.id, 'username':user.username, 'password':user.password})
+			output.append({'id':user.id, 'username':user.username, 'password':user.password, 'age':user.age})
+		print 'List:', output
 		return jsonify(trueReturn(output))

@@ -1,15 +1,26 @@
 <template>
   <div id="wrapper">
-    <nav class="navbar navbar-default">
-      <div class="container">
-        <a class="navbar-brand" href="#">
-          <i class="glyphicon glyphicon-time"></i>
-          计划板
-        </a>
-        <ul class="nav navbar-nav">
-          <li><router-link to="/">首页</router-link></li>
-          <li><router-link to="/time-entries">计划列表</router-link></li>
-        </ul>
+    <nav class="navbar navbar-default" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-id">
+            <span class="sr-only">切换导航</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">
+            <i class="glyphicon glyphicon-time"></i>
+            计划板
+          </a>
+        </div>
+        <div class="collapse navbar-collapse" id="navbar-collapse-id">
+          <ul class="nav navbar-nav">
+            <li><router-link to="/">首页</router-link></li>
+            <li><router-link to="/time-entries">计划列表</router-link></li>
+            <li><router-link to="/users">用户列表 </router-link></li>
+          </ul>
+        </div>
       </div>
     </nav>
     <div class="container">

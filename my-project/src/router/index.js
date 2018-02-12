@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Home from '@/components/Home'
 import TimeEntries from '@/components/TimeEntries'
 import LogTime from '@/components/LogTime'
+import Users from '@/components/Users'
 
 Vue.use(Router)
 
@@ -11,6 +12,9 @@ export default new Router({
     {
       path: '/',
       component: Home
+    }, {
+      path: '/users',
+      component: Users
     }, {
       path: '/time-entries',
       component: TimeEntries,
