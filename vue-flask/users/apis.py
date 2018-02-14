@@ -10,6 +10,7 @@ from flask import jsonify, request
 from models import User, Address, session_commit
 from common import *
 import time
+from flask_jwt import jwt_required, current_identity
 
 def init_api(app):
 
@@ -28,6 +29,7 @@ def init_api(app):
 		user.password = password
 		user.age = age
 		user.save()
+		session_commit()
 		return jsonify(trueReturn({'id':user.id}))
 
 	@app.route('/user/<int:userid>', methods = ['DELETE'])
@@ -45,3 +47,9 @@ def init_api(app):
 			output.append({'id':user.id, 'username':user.username, 'password':user.password, 'age':user.age})
 		print 'List:', output
 		return jsonify(trueReturn(output))
+
+	@app.route('/user/secret', methods = ['GET'])
+	@jwt_required()
+	def getUserSecret():
+		msg = {'id': current_identity.id}
+		return jsonify(trueReturn(msg))

@@ -10,6 +10,7 @@
 from flask import Flask, request
 from flask_migrate import Migrate, MigrateCommand
 from flask_script import Manager
+from flask_jwt import JWT
 
 app = Flask(__name__)
 app.config.from_object('config')
@@ -26,8 +27,10 @@ def after_request(response):
 			response.headers['Access-Control-Allow-Headers'] = headers
 	return response
 
-import apis
-apis.init_api(app)
+from users import apis as users_apis
+users_apis.init_api(app)
+from auth.auths import authenticate, identity
+jwt = JWT(app, authenticate, identity)
 
 from ext import db
 db.init_app(app)

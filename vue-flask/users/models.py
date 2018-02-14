@@ -14,6 +14,7 @@ class User(db.Model):
 	username = db.Column(db.String(20))
 	password = db.Column(db.String(20))
 	age = db.Column(db.Integer)
+	login_time = db.Column(db.Integer)
 	addresses = db.relationship('Address', backref='user')
 
 	def save(self):
@@ -29,6 +30,7 @@ class Address(db.Model):
 	id = db.Column(db.Integer,primary_key=True)
 	email_address = db.Column(db.String(50))
 	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
 
 def session_commit():
 	try:
