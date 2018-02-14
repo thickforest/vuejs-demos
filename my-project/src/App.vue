@@ -19,6 +19,7 @@
             <li><router-link to="/">首页</router-link></li>
             <li><router-link to="/time-entries">计划列表</router-link></li>
             <li><router-link to="/users">用户列表 </router-link></li>
+            <li><router-link to="/markdown">Markdown</router-link></li>
           </ul>
         </div>
       </div>
