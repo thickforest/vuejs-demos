@@ -13,6 +13,10 @@ Vue.use(mavonEditor)
 
 Vue.config.productionTip = false
 
+global.HOST = '192.168.123.33'
+global.PORT = 5000
+global.URL_BASE = 'http://' + global.HOST + ':' + global.PORT
+
 axios.interceptors.request.use(function (config) {
   console.log('axios.interceptors.request:')
   console.log(config)

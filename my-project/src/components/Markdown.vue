@@ -28,7 +28,7 @@ export default {
       formdata.append('filename', file)
       axios({
         method: 'POST',
-        url: 'http://192.168.123.33:5000/upload',
+        url: global.URL_BASE + '/upload',
         data: formdata,
         headers: {'Content-Type': 'multipart/form-data'}
       }).then((res) => {

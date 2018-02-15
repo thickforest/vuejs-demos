@@ -1,0 +1,6 @@
+# apt-get install python-mysqldb
+flask
+flask_sqlalchemy
+flask_migrate
+flask_script
+flask_jwt

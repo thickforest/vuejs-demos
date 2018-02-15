@@ -58,8 +58,7 @@ export default {
         age: 30
       },
       avatarFile: null,
-      avatarLocalURL2: 'https://sfault-avatar.b0.upaiyun.com/147/223/147223148-573297d0913c5_huge256',
-      avatarLocalURL: 'http://192.168.123.33:90/erzi.jpeg',
+      avatarLocalURL: 'http://sfault-avatar.b0.upaiyun.com/147/223/147223148-573297d0913c5_huge256',
       users: []
     }
   },
@@ -67,7 +66,7 @@ export default {
     getUsers () {
       axios({
         method: 'GET',
-        url: 'http://192.168.123.33:5000/user'
+        url: global.URL_BASE + '/user'
       }).then((res) => {
         this.users = res.data.data
       })
@@ -75,7 +74,7 @@ export default {
     delUser (id, index) {
       axios({
         method: 'DELETE',
-        url: 'http://192.168.123.33:5000/user/' + id
+        url: global.URL_BASE + '/user/' + id
       }).then((res) => {
         this.users.splice(index, 1)
       })
@@ -83,7 +82,7 @@ export default {
     addUser () {
       axios({
         method: 'POST',
-        url: 'http://192.168.123.33:5000/user',
+        url: global.URL_BASE + '/user',
         data: this.userForm
       }).then((res) => {
         this.users.push({'id': res.data.data.id, 'username': this.userForm.username, 'password': this.userForm.password, 'age': this.userForm.age})

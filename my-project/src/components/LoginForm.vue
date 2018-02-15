@@ -27,13 +27,13 @@ export default {
     handleLogin () {
       axios({
         method: 'POST',
-        url: 'http://192.168.123.33:5000/login',
+        url: global.URL_BASE + '/login',
         data: this.userForm
       }).then((res) => {
         const token = res.data.access_token
         axios({
           method: 'GET',
-          url: 'http://192.168.123.33:5000/user/detail'
+          url: global.URL_BASE + '/user/detail'
         }).then((res) => {
           this.$store.commit('saveUserInfo', res.data.data)
         })
