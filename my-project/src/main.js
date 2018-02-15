@@ -4,6 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import store from './store'
+import axios from 'axios'
 
 import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
@@ -11,6 +12,32 @@ import 'mavon-editor/dist/css/index.css'
 Vue.use(mavonEditor)
 
 Vue.config.productionTip = false
+
+axios.interceptors.request.use(function (config) {
+  console.log('axios.interceptors.request:')
+  console.log(config)
+  if (store.state.token != null) {
+    config.headers.Authorization = 'jwt ' + store.state.token
+  }
+  return config
+}, function (error) {
+  return Promise.reject(error)
+})
+
+axios.interceptors.response.use(function (response) {
+  return response
+}, function (error) {
+  console.log('axios.interceptors.error:')
+  console.log(error)
+  if (error.response.status === 401) {
+    store.commit('deleteToken')
+    router.replace({
+      path: '/loginForm',
+      query: {redirect: router.currentRoute.fullPath}
+    })
+  }
+  return Promise.reject(error)
+})
 
 /* eslint-disable no-new */
 new Vue({

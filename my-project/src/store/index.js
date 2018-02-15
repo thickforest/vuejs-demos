@@ -5,7 +5,9 @@ Vue.use(Vuex)
 
 const state = {
   totalTime: 0,
-  list: []
+  list: [],
+  token: null,
+  userInfo: null
 }
 
 const mutations = {
@@ -23,6 +25,18 @@ const mutations = {
   },
   deletePlan (state, idx) {
     state.list.splice(idx, 1)
+  },
+  saveToken (state, _token) {
+    state.token = _token
+    window.localStorage.setItem('accessToken', _token)
+  },
+  saveUserInfo (state, _userInfo) {
+    state.userInfo = _userInfo
+  },
+  deleteToken (state) {
+    state.token = null
+    window.localStorage.setItem('accessToken', '')
+    state.userInfo = null
   }
 }
 

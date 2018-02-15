@@ -37,8 +37,17 @@ def authenticate(username, password):
 			return 'error: password incorrect!', 400
 
 # >>> curl -i -H "Authorization: jwt eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZGVudGl0eSI6MTksImlhdCI6MTUxODY0MjIwOSwibmJmIjoxNTE4NjQyMjA5LCJleHAiOjE1MTg2NDI1MDl9.iwbRXyCXsqHxpySxGTQQ1nvogH_PCRfJ-w0SC7htNGs" http://192.168.123.33:5000/user/secret
+# HTTP/1.0 401 UNAUTHORIZED
+# {
+#  "description": "Signature has expired", 
+#  "error": "Invalid token", 
+#  "status_code": 401
+# }
 
 def identity(payload):
 	print 'identity:', payload	# {u'iat': 1518642209, u'exp': 1518642509, u'nbf': 1518642209, u'identity': 19}
 	_id = payload['identity']
+	print 'Iat', time.ctime(payload['iat'])
+	print 'Now:', time.ctime()
+	print 'Exp:', time.ctime(payload['exp'])
 	return User.query.filter_by(id = _id).first()

@@ -20,6 +20,8 @@
             <li><router-link to="/time-entries">计划列表</router-link></li>
             <li><router-link to="/users">用户列表 </router-link></li>
             <li><router-link to="/markdown">Markdown</router-link></li>
+            <li v-if="userInfo == null"><router-link to="/loginForm">LoginForm</router-link></li>
+            <li v-if="userInfo != null"><router-link to="/">{{ userInfo.username }}</router-link></li>
           </ul>
         </div>
       </div>
@@ -41,6 +43,11 @@ export default {
   name: 'app',
   components: {
     SideBar
+  },
+  computed: {
+    userInfo () {
+      return this.$store.state.userInfo
+    }
   }
 }
 </script>
