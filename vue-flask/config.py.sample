@@ -13,3 +13,9 @@ DB_USERNAME = 'root'
 DB_PASSWORD = ''
 SQLALCHEMY_TRACK_MODIFICATIONS = True
 SQLALCHEMY_DATABASE_URI = 'mysql+mysqldb://{}:{}@{}:{}/{}'.format(DB_USERNAME, DB_PASSWORD, DB_HOST, DB_PORT, DB_DATABASE)
+
+SECRET_KEY = '***************************************'
+
+JWT_AUTH_URL_RULE = '/login'
+#JWT_AUTH_USERNAME_KEY = 'username'
+JWT_EXPIRATION_DELTA = datetime.timedelta(seconds = 20)
